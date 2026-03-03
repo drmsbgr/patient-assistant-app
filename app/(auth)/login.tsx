@@ -3,12 +3,31 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function LoginScreen() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('hasta@test.com');
+    const [password, setPassword] = useState('123456');
+    const [error, setError] = useState('');
 
     const handleLogin = () => {
-        // Basic mock login - just route to tabs for now
-        router.replace('/(tabs)');
+        setError('');
+        if (email === 'hasta@test.com' && password === '123456') {
+            router.replace('/(tabs)');
+        } else if (email === 'admin@test.com' && password === 'admin123') {
+            router.replace('/(admin)');
+        } else {
+            setError('E-posta veya şifre hatalı. Lütfen tekrar deneyin.');
+        }
+    };
+
+    const fillMockAdmin = () => {
+        setEmail('admin@test.com');
+        setPassword('admin123');
+        setError('');
+    };
+
+    const fillMockPatient = () => {
+        setEmail('hasta@test.com');
+        setPassword('123456');
+        setError('');
     };
 
     return (
@@ -52,12 +71,23 @@ export default function LoginScreen() {
                         <Text className="text-primary font-medium">Şifremi Unuttum</Text>
                     </TouchableOpacity>
 
+                    {error ? <Text className="text-red-500 text-center mb-4">{error}</Text> : null}
+
                     <TouchableOpacity
                         className="bg-primary py-4 rounded-xl items-center shadow-sm"
                         onPress={handleLogin}
                     >
                         <Text className="text-white font-bold text-lg">Giriş Yap</Text>
                     </TouchableOpacity>
+
+                    <View className="mt-4 flex-row justify-between">
+                        <TouchableOpacity onPress={fillMockPatient} className="bg-surface border border-primary/30 p-3 rounded-lg flex-1 mr-2 items-center">
+                            <Text className="text-primary text-sm font-medium">Hasta Mock</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={fillMockAdmin} className="bg-surface border border-primary/30 p-3 rounded-lg flex-1 ml-2 items-center">
+                            <Text className="text-primary text-sm font-medium">Admin Mock</Text>
+                        </TouchableOpacity>
+                    </View>
 
                     <View className="flex-row justify-center mt-6">
                         <Text className="text-textSoft">Hesabınız yok mu? </Text>
