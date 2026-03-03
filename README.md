@@ -2,6 +2,8 @@
 
 Bu proje, Kolorektal Kanser (Kalın Bağırsak Kanseri) hastaları ve hasta yakınları için tasarlanmış kapsamlı bir dijital sağlık takip ve bilgilendirme mobil uygulamasıdır. React Native (Expo) kullanılarak geliştirilmiş olup, modern bir kullanıcı deneyimi sunar.
 
+VIDEO : https://www.youtube.com/watch?v=k7rGuVeAR1I
+
 ## Özellikler
 
 ### 1. Bilgi ve Farkındalık (Eğitim Modülü)
