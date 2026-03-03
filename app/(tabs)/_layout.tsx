@@ -1,71 +1,76 @@
+import { Tabs } from 'expo-router';
 import React from 'react';
-import { SymbolView } from 'expo-symbols';
-import { Link, Tabs } from 'expo-router';
-import { Platform, Pressable } from 'react-native';
-
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { Platform } from 'react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
+        tabBarActiveTintColor: '#0ea5e9', // primary color
+        headerShown: false,
+        tabBarStyle: {
+          paddingBottom: Platform.OS === 'ios' ? 20 : 10,
+          paddingTop: 10,
+          height: Platform.OS === 'ios' ? 85 : 65,
+          backgroundColor: '#ffffff',
+          borderTopWidth: 1,
+          borderTopColor: '#f1f5f9'
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: '600'
+        }
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
-              }}
-              tintColor={color}
-              size={28}
-            />
-          ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable style={{ marginRight: 15 }}>
-                {({ pressed }) => (
-                  <SymbolView
-                    name={{ ios: 'info.circle', android: 'info', web: 'info' }}
-                    size={25}
-                    tintColor={Colors[colorScheme].text}
-                    style={{ opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          title: 'Ana Sayfa',
+          tabBarIcon: ({ color }) => <TabBarIcon name="Home" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="symptoms"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
-              }}
-              tintColor={color}
-              size={28}
-            />
-          ),
+          title: 'Belirtiler',
+          tabBarIcon: ({ color }) => <TabBarIcon name="Activity" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="medical"
+        options={{
+          title: 'Tıbbi Takip',
+          tabBarIcon: ({ color }) => <TabBarIcon name="FileText" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="community"
+        options={{
+          title: 'Deneyimler',
+          tabBarIcon: ({ color }) => <TabBarIcon name="Users" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="info"
+        options={{
+          title: 'Bilgi',
+          tabBarIcon: ({ color }) => <TabBarIcon name="Info" color={color} />,
         }}
       />
     </Tabs>
   );
 }
+
+// Temporary Mock Icon component
+function TabBarIcon({ name, color }: { name: string; color: string }) {
+  return (
+    <Text style={{ color, fontSize: 20 }}>
+      {name === 'Home' ? '🏠' :
+        name === 'Activity' ? '📈' :
+          name === 'FileText' ? '📄' :
+            name === 'Users' ? '👥' : 'ℹ️'}
+    </Text>
+  );
+}
+
+import { Text } from 'react-native';
+
