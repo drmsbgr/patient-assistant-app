@@ -19,8 +19,17 @@ export const unstable_settings = {
   initialRouteName: 'index',
 };
 
+import { initDatabase } from '@/lib/db';
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+// Initialize the database schema and mock records
+try {
+  initDatabase();
+} catch (e) {
+  console.log('DB init error:', e);
+}
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({

@@ -15,7 +15,7 @@ export default function AdminDashboardScreen() {
                     <Text className="text-3xl font-bold text-slate-800">Yönetim Paneli</Text>
                     <TouchableOpacity
                         className="bg-slate-200 px-4 py-2 rounded-full"
-                        onPress={() => router.replace('/(tabs)')}
+                        onPress={() => router.replace('/(auth)/login')}
                     >
                         <Text className="text-slate-700 font-bold">Çıkış</Text>
                     </TouchableOpacity>
